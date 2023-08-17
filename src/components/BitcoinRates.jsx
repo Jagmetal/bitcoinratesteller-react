@@ -9,11 +9,11 @@ function BitcoinRates() {
     useEffect(() => {
         const fetchBitcoinPrice = async () => {
             try {
-                const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency}`);
+                const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=${currency.toLowerCase()}`); // Convert to lowercase
                 const data = await response.json();
                 console.log('API response:', data);
                 console.log('Selected currency:', currency);
-                setBitcoinPrice(data.bitcoin[currency]);
+                setBitcoinPrice(data.bitcoin[currency.toLowerCase()]); 
                 
             } catch (error) {
                 console.error('Error fetching Bitcoin price:', error);
@@ -24,14 +24,11 @@ function BitcoinRates() {
         fetchBitcoinPrice();
     }, [currency]);
 
-
     const options = currencies.map(curr => (
         <option value={curr} key={curr}>
             {curr}
         </option>
     ));
-
-
 
     return (
         <div className="BitcoinRates componentBox">
